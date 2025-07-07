@@ -1,80 +1,56 @@
-# 🛡️ Domain Intelligence & Web Crawling Toolkit
+# aiapp
 
-A full-stack application built using **C# (.NET)**, **Ember.js**, **SQLite**, and **Puppeteer**, designed for validating email domains and crawling websites to detect Managed Service Provider (MSP) links, competitor presence, and other organization-specific references. This project includes two major modules:
+This README outlines the details of collaborating on this Ember application.
+A short introduction of this app could easily go here.
 
----
+## Prerequisites
 
-## ✉️ Module 1: Email Validation & Domain Intelligence
+You will need the following things properly installed on your computer.
 
-This module validates email IDs and analyzes their associated domains for trust and reputation.
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) (with npm)
+- [Ember CLI](https://cli.emberjs.com/release/)
+- [Google Chrome](https://google.com/chrome/)
 
-### 🔍 Features
+## Installation
 
-✅ **Email Validation**  
-  Extracts and verifies the domain from the entered email ID.
+- `git clone <repository-url>` this repository
+- `cd aiapp`
+- `npm install`
 
-📊 **Trust Score Evaluation**  
-  Determines the trustworthiness of the domain.
+## Running / Development
 
-🌐 **Google Popularity Check**  
-  Assesses the online popularity of the domain.
+- `npm run start`
+- Visit your app at [http://localhost:4200](http://localhost:4200).
+- Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
-🏢 **Competitor Detection**  
-  Identifies whether the domain is a competitor of a specific organization.
+### Code Generators
 
-🔢 **Global Rank Display**  
-  Shows a rank based on domain visibility and metrics.
+Make use of the many generators for code, try `ember help generate` for more details
 
-📸 **Screenshot Capture**  
-  Uses Puppeteer to capture the homepage of the domain.
+### Running Tests
 
-🧠 **Groq API Integration**  
-  Queries the domain using Groq’s prompt-based intelligence to retrieve insights.
+- `npm run test`
+- `npm run test:ember -- --server`
 
----
+### Linting
 
-## 🌐 Module 2: Website Crawler & MSP Link Detection
+- `npm run lint`
+- `npm run lint:fix`
 
-This module crawls entire websites (depth-first) and detects internal references, links, and content related to a specific organization.
+### Building
 
-### 🔍 Features
+- `npm exec ember build` (development)
+- `npm run build` (production)
 
-🔍 **Deep Web Crawling**  
-  Crawls all internal pages using depth-first search (e.g., /about, /services/example, etc.).
+### Deploying
 
-🔗 **MSP Link Detection**  
-  Detects links or content promoting a specific organization (e.g., as a Managed Service Provider).
+Specify what it takes to deploy your app.
 
-📸 **Targeted Screenshot Capture**  
-  Takes screenshots of pages containing organization-related mentions.
+## Further Reading / Useful Links
 
-💾 **Data Storage**  
-  Stores all crawled links and screenshots in the database for future reference.
-
-⚙️ **MSP Link Status Check**  
-  Verifies if the found MSP links are actually **live and accessible**
-
-🏢 **Competitor Identification**  
-  Detects if the target website is a potential competitor of the specific organization.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer        | Technology           |
-|--------------|----------------------|
-| Frontend     | Ember.js             |
-| Backend      | ASP.NET Core (C#)    |
-| Database     | SQLite               |
-| Web Crawling | Puppeteer            |
-| AI/Analysis  | Groq API             |
-
----
-
-## 📸 Screenshots
-
-![Screenshot (9)](https://github.com/user-attachments/assets/15916f42-c29d-4ea2-8b7c-74174768596f)
-![Screenshot (8)](https://github.com/user-attachments/assets/ab64375d-877e-4bf4-a021-7e77f9cfec2d)
-
-
----
+- [ember.js](https://emberjs.com/)
+- [ember-cli](https://cli.emberjs.com/release/)
+- Development Browser Extensions
+  - [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+  - [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
