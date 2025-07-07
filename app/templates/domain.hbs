@@ -1,0 +1,76 @@
+<h1>Domain</h1>
+
+<div class="input-container">
+  <label for="email">Email Address:</label>
+  <Input @value={{this.email}} placeholder="e.g., user@example.com"/>
+  <button disabled={{this.loading}} class="classify-btn" type="button" {{on "click" this.parseEmail}}>
+    {{if this.loading "Processing..." "Classify"}}
+  </button>
+</div>
+
+{{#if this.error}}
+  <div class="error">{{this.error}}</div>
+{{/if}}
+
+{{#if this.emailStatus}}
+  <div class="validation-result">
+    <p>{{this.emailStatus}}</p>
+  </div>
+{{/if}}
+
+{{#if this.domainInfo}}
+  <div class="result-container">
+    <h2>Class:{{this.domainInfo.industry}} </h2>
+    <h2>Country:{{this.domainInfo.location}}</h2>
+    
+    <div class="metrics">
+      <div class="metric">
+        <span>Google popularity:</span> <span class="value">{{this.domainInfo.popularity}}</span>
+      </div>
+      
+      <div class="metric">
+        <span>Trust Score:</span> <span class="value">{{this.domainInfo.trustScore}}/100</span>
+      </div>
+      
+      <div class="metric">
+        <span>Competitor For Admindorid:</span> <span class="value">{{this.domainInfo.isCompetitor}}</span>
+      </div>
+      
+      <div class="metric">
+        <span>Rank:</span> <span class="value">{{this.domainInfo.rank}}</span>
+      </div>
+
+      {{!-- <div class="metric">
+        <span>promotion</span> <span class="value">{{this.domainInfo.promotion}}</span>
+      </div> --}}
+    </div>
+    
+    {{#if this.contactInfo}}
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        
+        {{#if this.contactInfo.email}}
+          <div class="contact-item">
+            <span>Support Email:</span> <span class="value">{{this.contactInfo.email}}</span>
+          </div>
+        {{/if}}
+        
+        {{#if this.contactInfo.phone}}
+          <div class="contact-item">
+            <span>Support Phone:</span> <span class="value">{{this.contactInfo.phone}}</span>
+          </div>
+        {{/if}}
+        
+        <div class="contact-item">
+          <span>Contact Form Available:</span> <span class="value">{{if this.contactInfo.hasContactForm "Yes" "No"}}</span>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+
+{{#if this.screenshotBase64}}
+  <h3>Website Screenshot:</h3>
+  <img src="data:image/png;base64,{{this.screenshotBase64}}" alt="Website Screenshot" width="100%" />
+{{/if}}
+

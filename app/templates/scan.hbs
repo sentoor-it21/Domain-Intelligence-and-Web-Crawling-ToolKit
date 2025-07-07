@@ -1,0 +1,343 @@
+{{!-- app/templates/scan.hbs
+<div class="scan-container">
+  <div class="header">
+    <h1>🔍 Web Content Scanner</h1>
+    <p class="subtitle">Search for specific content across any website with competitor analysis</p>
+  </div>
+
+  <div class="scan-form-wrapper">
+    <form {{on "submit" this.trackContent}} class="scan-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="url-input" class="form-label">
+            <span class="label-icon">🌐</span>
+            Website URL
+          </label>
+          <input 
+            id="url-input"
+            type="text" 
+            placeholder="e.g., example.com or https://example.com/page" 
+            value={{this.inputUrl}} 
+            {{on "input" this.updateUrl}}
+            class="form-input"
+            disabled={{this.isLoading}}
+          />
+        </div>
+        <div class="form-group">
+          <label for="target-input" class="form-label">
+            <span class="label-icon">🎯</span>
+            Target Content
+          </label>
+          <input 
+            id="target-input"
+            type="text" 
+            placeholder="e.g., login, contact, about, product name" 
+            value={{this.targetName}} 
+            {{on "input" this.updateTarget}}
+            class="form-input"
+            disabled={{this.isLoading}}
+          />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn btn-primary {{if this.isLoading 'loading'}}"
+          disabled={{not this.isFormValid}}
+        >
+          {{#if this.isLoading}}
+            <span class="spinner"></span>
+            Scanning Website...
+          {{else}}
+            <span class="btn-icon">🚀</span>
+            Start Scan
+          {{/if}}
+        </button>
+
+        {{#if this.hasResults}}
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            {{on "click" this.clearResults}}
+            disabled={{this.isLoading}}
+          >
+            <span class="btn-icon">🗑️</span>
+            Clear Results
+          </button>
+        {{/if}}
+
+        <button 
+          type="button" 
+          class="btn btn-secondary"
+          {{on "click" this.loadLatestScans}}
+          disabled={{this.autoScanLoading}}
+        >
+          {{#if this.autoScanLoading}}🔄 Loading...{{else}}📥 Load Latest Auto Scan{{/if}}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {{#if this.errorMessage}}
+    <div class="alert alert-error">
+      <span class="alert-icon">❌</span>
+      <div class="alert-content">
+        <strong>Error:</strong> {{this.errorMessage}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if this.successMessage}}
+    <div class="alert alert-success">
+      <span class="alert-icon">✅</span>
+      <div class="alert-content">
+        <strong>Success:</strong> {{this.successMessage}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if this.latestScanResults.length}}
+    <div class="auto-scan-gallery">
+      <h3>📸 Latest Auto Scan Results</h3>
+      <div class="auto-scan-grid">
+        {{#each this.latestScanResults as |result|}}
+  <div class="scan-result-card">
+    <h3>🔍 Website: {{result.website}}</h3>
+    <p>🎯 Target: {{result.targetName}}</p>
+    <p>✅ Found: {{if result.found "Yes" "No"}}</p>
+    <p>🔗 URL: <a href={{result.matchedPageUrl}} target="_blank">{{result.matchedPageUrl}}</a></p>
+    
+    {{#if result.screenshotBase64}}
+      <img src="data:image/png;base64,{{result.screenshotBase64}}" alt="Screenshot" style="max-width:400px;" />
+    {{/if}}
+
+    <small>🕒 Scanned At: {{result.scannedAt}}</small>
+  </div>
+{{/each}}
+
+      </div>
+    </div>
+  {{/if}}
+</div> --}}
+
+
+{{!-- app/templates/scan.hbs --}}
+<div class="scan-container">
+  <div class="header">
+    <h1>🔍 Web Content Scanner</h1>
+    <p class="subtitle">Search for specific content across any website with competitor analysis</p>
+  </div>
+
+  <div class="scan-form-wrapper">
+    <form {{on "submit" this.trackContent}} class="scan-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="url-input" class="form-label">
+            <span class="label-icon">🌐</span>
+            Website URL
+          </label>
+          <input 
+            id="url-input"
+            type="text" 
+            placeholder="e.g., example.com or https://example.com/page" 
+            value={{this.inputUrl}} 
+            {{on "input" this.updateUrl}}
+            class="form-input"
+            disabled={{this.isLoading}}
+          />
+        </div>
+        <div class="form-group">
+          <label for="target-input" class="form-label">
+            <span class="label-icon">🎯</span>
+            Target Content
+          </label>
+          <input 
+            id="target-input"
+            type="text" 
+            placeholder="e.g., login, contact, about, product name" 
+            value={{this.targetName}} 
+            {{on "input" this.updateTarget}}
+            class="form-input"
+            disabled={{this.isLoading}}
+          />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn btn-primary {{if this.isLoading 'loading'}}"
+          disabled={{not this.isFormValid}}
+        >
+          {{#if this.isLoading}}
+            <span class="spinner"></span>
+            Scanning Website...
+          {{else}}
+            <span class="btn-icon">🚀</span>
+            Start Scan
+          {{/if}}
+        </button>
+
+        {{#if this.hasResults}}
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            {{on "click" this.clearResults}}
+            disabled={{this.isLoading}}
+          >
+            <span class="btn-icon">🗑️</span>
+            Clear Results
+          </button>
+        {{/if}}
+
+        <button 
+          type="button" 
+          class="btn btn-secondary"
+          {{on "click" this.loadLatestScans}}
+          disabled={{this.autoScanLoading}}
+        >
+          {{#if this.autoScanLoading}}
+            <span class="spinner"></span>
+            Loading...
+          {{else}}
+            📥 Load Latest Auto Scan
+          {{/if}}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {{#if this.errorMessage}}
+    <div class="alert alert-error">
+      <span class="alert-icon">❌</span>
+      <div class="alert-content">
+        <strong>Error:</strong> {{this.errorMessage}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if this.successMessage}}
+    <div class="alert alert-success">
+      <span class="alert-icon">✅</span>
+      <div class="alert-content">
+        <strong>Success:</strong> {{this.successMessage}}
+      </div>
+    </div>
+  {{/if}}
+
+
+  {{!-- 🔽 Existing Scan Results Table --}}
+  {{#if this.latestScanResults.length}}
+    <div class="results-section">
+      <div class="results-header">
+        <h3>📊 Latest Scan Results</h3>
+        <span class="results-count">({{this.latestScanResults.length}} results)</span>
+      </div>
+      
+      <div class="results-table-container">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>🌐 Website</th>
+              <th>🎯 Target</th>
+              <th>✅ Status</th>
+              <th>🔗 Matched URL</th>
+              <th>📸 Screenshot</th>
+              <th>🔍 Live</th>
+              <th>🏁 Competitor Count</th>
+              <th>🔗 Competitor Links</th>
+              <th>🕒 Scanned At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.latestScanResults as |result index|}}
+              <tr>
+                <td class="row-number">{{add index 1}}</td>
+                <td class="website-cell"><strong>{{result.website}}</strong></td>
+                <td class="target-cell">{{result.targetName}}</td>
+                <td class="status-cell">
+                  {{#if result.found}}
+                    <span class="status-badge status-found">✅ Found</span>
+                  {{else}}
+                    <span class="status-badge status-not-found">❌ Not Found</span>
+                  {{/if}}
+                </td>
+                <td class="url-cell">
+                  {{#if result.matchedPageUrl}}
+                    <a href={{result.matchedPageUrl}} target="_blank" class="url-link">
+                      {{result.matchedPageUrl}}
+                    </a>
+                  {{else}}
+                    <span class="no-url">-</span>
+                  {{/if}}
+                </td>
+                <td class="screenshot-cell">
+                  {{#if result.hasValidScreenshot}}
+                    <div class="screenshot-container">
+                      <img 
+                        src="data:image/png;base64,{{result.validScreenshot}}" 
+                        alt="Screenshot" 
+                        class="screenshot-img"
+                        {{on "click" (fn this.openScreenshotModal result.validScreenshot)}}
+                      />
+                      <div class="screenshot-overlay">
+                        <span>🔍 Click to view full size</span>
+                      </div>
+                    </div>
+                  {{else}}
+                    <div class="screenshot-placeholder">
+                      <span>📷 No Screenshot</span>
+                    </div>
+                  {{/if}}
+                </td>
+
+                    <td class="live-status-cell">
+                      {{#if (eq result.isMatchedUrlLive true)}}
+                        <span class="live-yes">🟢 Live</span>
+                      {{else if (eq result.isMatchedUrlLive false)}}
+                        <span class="live-no">🔴 Not Live</span>
+                      {{else}}
+                        <span class="live-unknown">⚪ Unknown</span>
+                      {{/if}}
+                    </td>
+
+                    <td class="competitor-count-cell">
+                      {{result.competitorCount}}
+                    </td>
+                    <td class="competitor-links-cell">
+                      {{#if result.competitorLinks}}
+                        {{#each (split result.competitorLinks ",") as |link|}}
+                          <a href="{{link}}" target="_blank">{{link}}</a><br/>
+                        {{/each}}
+                      {{else}}
+                        NIL
+                      {{/if}}
+                    </td>
+
+                <td class="date-cell">
+                  <span class="date-text">
+                    {{#if result.formattedDate}}
+                      {{result.formattedDate}}
+                    {{else}}
+                      {{result.scannedAt}}
+                    {{/if}}
+                  </span>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{else}}
+    {{#unless this.autoScanLoading}}
+      <div class="no-results">
+        <div class="no-results-icon">📭</div>
+        <h3>No scan results available</h3>
+        <p>Click "Load Latest Auto Scan" to view recent scan results</p>
+      </div>
+    {{/unless}}
+  {{/if}}
+</div>
+
+
